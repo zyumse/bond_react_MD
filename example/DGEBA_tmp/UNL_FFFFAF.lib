@@ -1,0 +1,138 @@
+#Remarks LigParGen generated for Q (by Leela Dodda and Israel Cabeza de Vaca)
+
+{UNL}
+[atoms]
+       1    C00   C800  -0.2214 
+       2    C01   C801   0.0310 
+       3    C02   C802  -0.2279 
+       4    C03   C803  -0.0722 
+       5    C04   C804  -0.1327 
+       6    C05   C805  -0.1488 
+       7    C06   C806   0.0884 
+       8    C07   C807  -0.1488 
+       9    C08   C808  -0.1327 
+      10    O09   O809  -0.3210 
+      11    C0A   C810   0.0354 
+      12    C0B   C811  -0.1162 
+      13    C0C   C812  -0.0881 
+      14    O0D   O813  -0.2803 
+      15    C0E   C814  -0.0916 
+      16    C0F   C815  -0.1129 
+      17    C0G   C816  -0.1761 
+      18    C0H   C817   0.1112 
+      19    C0I   C818  -0.1761 
+      20    C0J   C819  -0.1129 
+      21    O0K   O820  -0.3082 
+      22    C0M   C821   0.0634 
+      23    C0N   C822  -0.1220 
+      24    C0O   C823  -0.0913 
+      25    O0P   O824  -0.2802 
+      26    H0Q   H825   0.0900 
+      27    H0R   H826   0.0900 
+      28    H0S   H827   0.0900 
+      29    H0T   H828   0.0906 
+      30    H0U   H829   0.0906 
+      31    H0V   H830   0.0906 
+      32    H0W   H831   0.1501 
+      33    H0X   H832   0.1568 
+      34    H0Y   H833   0.1568 
+      35    H0Z   H834   0.1501 
+      36    H10   H835   0.0994 
+      37    H11   H836   0.0994 
+      38    H12   H837   0.2250 
+      39    H13   H838   0.1064 
+      40    H14   H839   0.1064 
+      41    H15   H840   0.1482 
+      42    H16   H841   0.1544 
+      43    H17   H842   0.1544 
+      44    H18   H843   0.1482 
+      45    H19   H844   0.0984 
+      46    H1A   H845   0.0984 
+      47    H1B   H846   0.2209 
+      48    H1C   H847   0.1084 
+      49    H1D   H848   0.1084 
+[bonds]
+     C01      C00
+     C02      C01
+     C03      C01
+     C04      C03
+     C05      C04
+     C06      C05
+     C07      C06
+     C08      C03
+     O09      C06
+     C0A      O09
+     C0B      C0A
+     C0C      C0B
+     O0D      C0B
+     C0E      C01
+     C0F      C0E
+     C0G      C0F
+     C0H      C0G
+     C0I      C0H
+     C0J      C0E
+     O0K      C0H
+     C0M      O0K
+     C0N      C0M
+     C0O      C0N
+     O0P      C0N
+     H0Q      C00
+     H0R      C00
+     H0S      C00
+     H0T      C02
+     H0U      C02
+     H0V      C02
+     H0W      C04
+     H0X      C05
+     H0Y      C07
+     H0Z      C08
+     H10      C0A
+     H11      C0A
+     H12      C0B
+     H13      C0C
+     H14      C0C
+     H15      C0F
+     H16      C0G
+     H17      C0I
+     H18      C0J
+     H19      C0M
+     H1A      C0M
+     H1B      C0N
+     H1C      C0O
+     H1D      C0O
+     C08      C07
+     O0D      C0C
+     C0J      C0I
+     O0P      C0O
+[impropers]
+C03   C01   C00   C02 
+C08   C03   C01   C04 
+O09   C06   C05   C07 
+C0E   C01   C00   C02 
+C0J   C0E   C01   C0F 
+O0K   C0H   C0G   C0I 
+H0R   C00   C01   H0Q 
+H0S   C00   C01   H0Q 
+H0U   C02   C01   H0T 
+H0V   C02   C01   H0T 
+H0W   C04   C03   C05 
+H0X   C05   C04   C06 
+H0Y   C07   C06   C08 
+H0Z   C08   C03   C07 
+H10   C0A   O09   C0B 
+H11   C0A   O09   C0B 
+H12   C0B   C0A   C0C 
+H15   C0F   C0E   C0G 
+H16   C0G   C0F   C0H 
+H17   C0I   C0H   C0J 
+H18   C0J   C0E   C0I 
+H19   C0M   O0K   C0N 
+H1A   C0M   O0K   C0N 
+H1B   C0N   C0M   C0O 
+O0P   C0O   C0N   C0M 
+O0D   C0C   C0B   C0A 
+C0C   O0D   C0B   C0A 
+C0O   O0P   C0N   C0M 
+[charge_groups]
+ C00 C01 C02 C03 C04 C05 C06 C07 C08 O09 C0A C0B C0C O0D C0E C0F C0G C0H C0I C0J O0K C0M C0N C0O O0P H0Q H0R H0S H0T H0U H0V H0W H0X H0Y H0Z H10 H11 H12 H13 H14 H15 H16 H17 H18 H19 H1A H1B H1C H1D
+*------------------------------------------------------------------

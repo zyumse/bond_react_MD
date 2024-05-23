@@ -1,0 +1,43 @@
+units real
+atom_style full
+
+dimension 3
+boundary p p p
+
+pair_style lj/cut/coul/cut 15.0 15.0
+pair_modify mix geometric
+
+bond_style harmonic 
+angle_style harmonic
+dihedral_style opls 
+improper_style cvff
+special_bonds lj/coul 0.0 0.0 0.5 
+
+read_data pre_react.dat
+
+#kspace_style    pppm 1e-5
+#kspace_modify  slab 3.0
+
+neighbor        1.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+thermo          1000
+#thermo_style    custom step temp density press pxx pyy pzz pxy pxz pyz ke pe etotal vol lx ly lz
+
+dump            1 all xyz 1000 dump_relax.xyz
+#dump_modify     1 sort id
+
+velocity all create 300.0 428459 dist gaussian
+
+molecule mol1 rxn1_pre.data_template
+molecule mol2 rxn1_post.data_template
+
+fix rxns all bond/react stabilization yes statted_grp .03 &
+  react rxn1 all 1 0.0 5 mol1 mol2 rxn1_v2.map 
+
+fix 1 statted_grp_REACT npt temp 300 300 100 iso 1 1 1000
+thermo_style custom step temp density f_rxns[1] 
+
+run             30000
+
+write_data      out.dat

@@ -1,33 +1,33 @@
 # import numpy as np
 # import pandas as pd
-import my_common as mc
-import tools_lammps as tl
+from tools_lammps import compute_mappings,write_lammps_full,convert_lmp
+# from .tools_lammps import compute_mappings,write_lammps_full,convert_lmp
 import pickle
 
 ####### product ########
 
-file_lmp = './2DGEBA_MDA/post/tmp/UNL_64725F.lmp'
-file_key = './2DGEBA_MDA/post/tmp/UNL_64725F.key'
+file_lmp = './example/post_tmp/UNL_BF7C89.lmp'
+file_key = './example/post_tmp/UNL_BF7C89.key'
 
-lmp_new, mapping_dict = tl.compute_mappings(file_lmp,file_key)
-tl.write_lammps_full('./product.dat',lmp_new)
+lmp_new, mapping_dict = compute_mappings(file_lmp,file_key)
+write_lammps_full('./example/product.dat',lmp_new)
 
 with open('mapping.pkl', 'wb') as file:
     pickle.dump(mapping_dict, file)
 
 ###### reactant1 ######## 
 
-file = './DGEBA_n1/tmp/UNL_0DE044.lmp'
-file_key = './DGEBA_n1/tmp/UNL_0DE044.key'
-lmp_react_new = tl.convert_lmp(file,file_key,mapping_dict)
-tl.write_lammps_full('./DGEBA.dat',lmp_react_new)
+file = './example/DGEBA_tmp/UNL_FFFFAF.lmp'
+file_key = './example/DGEBA_tmp/UNL_FFFFAF.key'
+lmp_react_DGEBA = convert_lmp(file,file_key,mapping_dict)
+write_lammps_full('./example/DGEBA.dat',lmp_react_DGEBA)
 
 ###### reactant2 ######## 
 
-file = './MDA_sim/tmp/UNL_A52E2E.lmp'
-file_key = './MDA_sim/tmp/UNL_A52E2E.key'
-lmp_react_new = tl.convert_lmp(file,file_key,mapping_dict)
-tl.write_lammps_full('./MDA.dat',lmp_react_new)
+file = './example/MDA_tmp/UNL_A52E2E.lmp'
+file_key = './example/MDA_tmp/UNL_A52E2E.key'
+lmp_react_new = convert_lmp(file,file_key,mapping_dict)
+write_lammps_full('./example/MDA.dat',lmp_react_new)
 
 
 

@@ -1,0 +1,161 @@
+LAMMPS (2 Aug 2023)
+units real
+atom_style full
+
+dimension 3
+boundary p p p
+
+pair_style lj/cut/coul/cut 15.0 15.0
+pair_modify mix geometric
+
+bond_style harmonic
+angle_style harmonic
+dihedral_style opls
+improper_style cvff
+special_bonds lj/coul 0.0 0.0 0.5
+
+read_data DGEBA_center.dat extra/dihedral/per/atom 1
+Reading data file ...
+  orthogonal box = (-6.67908 -6.07739 -4.64866) to (43.32092 43.92261 45.35134)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  49 atoms
+  reading velocities ...
+  49 velocities
+  scanning bonds ...
+  2 = max bonds/atom
+  scanning angles ...
+  6 = max angles/atom
+  scanning dihedrals ...
+  10 = max dihedrals/atom
+  scanning impropers ...
+  5 = max impropers/atom
+  reading bonds ...
+  52 bonds
+  reading angles ...
+  94 angles
+  reading dihedrals ...
+  128 dihedrals
+  reading impropers ...
+  28 impropers
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0.5     
+  special bond factors coul:  0        0        0.5     
+     4 = max # of 1-2 neighbors
+    10 = max # of 1-3 neighbors
+    19 = max # of 1-4 neighbors
+    22 = max # of special neighbors
+  special bonds CPU = 0.000 seconds
+  read_data CPU = 0.003 seconds
+read_data MDA_center.dat add append shift 10 10 10
+Reading data file ...
+WARNING: Non-zero image flags with growing box leads to bad coordinates (src/read_data.cpp:589)
+  orthogonal box = (-6.67908 -6.07739 -4.64866) to (57.03843 59.25778 57.22308)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  29 atoms
+  reading velocities ...
+  29 velocities
+  scanning bonds ...
+  2 = max bonds/atom
+  scanning angles ...
+  6 = max angles/atom
+  scanning dihedrals ...
+  10 = max dihedrals/atom
+  scanning impropers ...
+  2 = max impropers/atom
+  reading bonds ...
+  30 bonds
+  reading angles ...
+  48 angles
+  reading dihedrals ...
+  68 dihedrals
+  reading impropers ...
+  16 impropers
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0.5     
+  special bond factors coul:  0        0        0.5     
+     4 = max # of 1-2 neighbors
+    10 = max # of 1-3 neighbors
+    19 = max # of 1-4 neighbors
+    22 = max # of special neighbors
+  special bonds CPU = 0.000 seconds
+  read_data CPU = 0.001 seconds
+
+#kspace_style    pppm 1e-5
+#kspace_modify  slab 3.0
+
+neighbor        1.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+thermo          1000
+thermo_style    custom step temp density press pxx pyy pzz pxy pxz pyz ke pe etotal vol lx ly lz
+
+dump            1 all xyz 1000 dump_relax.xyz
+#dump_modify     1 sort id
+
+#NVT/NPT melt run
+fix             1 all nvt temp 300 300 100
+#fix             1 all npt temp 400 400 100 iso 0 0 1000
+fix             2 all recenter 20.0 20.0 20.0
+run             10000
+Generated 55 of 55 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 8 9 8
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 13.77 | 13.77 | 13.77 Mbytes
+   Step          Temp         Density         Press           Pxx            Pyy            Pzz            Pxy            Pxz            Pyz           KinEng         PotEng         TotEng         Volume           Lx             Ly             Lz      
+         0   285.38175      0.0034728675   2.3072899     -6.4293943     -44.973324      58.324587      4.7931861     -28.932105     -12.512244      65.501496      115.66227      181.16377      257571.7       63.71751       65.33517       61.87174     
+      1000   332.08812      0.0034728675  -30.54873       5.7357784     -9.3273851     -88.054582     -23.081195     -15.16203       17.333873      76.221655      112.239        188.46066      257571.7       63.71751       65.33517       61.87174     
+      2000   345.17006      0.0034728675   57.530758      42.637795      99.047877      30.906601      6.0993255      18.493692     -7.3632587      79.224252      107.94708      187.17133      257571.7       63.71751       65.33517       61.87174     
+      3000   310.49759      0.0034728675  -7.7288023     -15.387566     -40.958717      33.159877      19.52059       13.812163     -10.342137      71.266143      110.08848      181.35462      257571.7       63.71751       65.33517       61.87174     
+      4000   250.90741      0.0034728675   1.2096194      19.742113     -18.67048       2.5572251      16.629479      18.489467     -10.864019      57.588865      109.07063      166.65949      257571.7       63.71751       65.33517       61.87174     
+      5000   281.90765      0.0034728675   2.6815663     -16.56611       40.047965     -15.437157     -25.618698      45.847999      27.197652      64.704113      133.56635      198.27047      257571.7       63.71751       65.33517       61.87174     
+      6000   260.05602      0.0034728675   43.718976      53.413689      98.516828     -20.773588      17.52325       15.576239      24.098763      59.688676      106.75947      166.44814      257571.7       63.71751       65.33517       61.87174     
+      7000   272.11382      0.0034728675   4.8358434     -19.229073      66.923852     -33.187248      6.4551775      19.676531      14.932182      62.45621       120.65038      183.10659      257571.7       63.71751       65.33517       61.87174     
+      8000   336.61629      0.0034728675  -16.321657      9.5718438     -9.2734514     -49.263364     -13.352378      50.198828      17.239401      77.26097       114.24855      191.50952      257571.7       63.71751       65.33517       61.87174     
+      9000   304.27998      0.0034728675  -12.959776     -18.367161     -20.230951     -0.28121684    -26.882485      18.51819      -8.6647231      69.839063      100.38439      170.22346      257571.7       63.71751       65.33517       61.87174     
+     10000   253.66076      0.0034728675  -49.213818     -24.669867     -70.576702     -52.394886      14.776055      2.3040317     -31.189001      58.220819      140.81396      199.03478      257571.7       63.71751       65.33517       61.87174     
+Loop time of 0.320597 on 1 procs for 10000 steps with 78 atoms
+
+Performance: 2694.971 ns/day, 0.009 hours/ns, 31191.796 timesteps/s, 2.433 Matom-step/s
+99.7% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.10081    | 0.10081    | 0.10081    |   0.0 | 31.45
+Bond    | 0.18742    | 0.18742    | 0.18742    |   0.0 | 58.46
+Neigh   | 0.017957   | 0.017957   | 0.017957   |   0.0 |  5.60
+Comm    | 0.0011501  | 0.0011501  | 0.0011501  |   0.0 |  0.36
+Output  | 0.00064708 | 0.00064708 | 0.00064708 |   0.0 |  0.20
+Modify  | 0.010695   | 0.010695   | 0.010695   |   0.0 |  3.34
+Other   |            | 0.001919   |            |       |  0.60
+
+Nlocal:             78 ave          78 max          78 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:              0 ave           0 max           0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:           1749 ave        1749 max        1749 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1749
+Ave neighs/atom = 22.423077
+Ave special neighs/atom = 9.9487179
+Neighbor list builds = 633
+Dangerous builds = 1
+unfix           1
+unfix           2
+write_data      pre_react.dat
+System init for write_data ...
+Generated 55 of 55 mixed pair_coeff terms from geometric mixing rule
+Total wall time: 0:00:00

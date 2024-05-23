@@ -1,0 +1,41 @@
+this is a map file
+
+2 edgeIDs
+24 equivalences
+
+InitiatorIDs
+
+18
+5
+
+EdgeIDs
+
+1
+17
+
+Equivalences
+
+1   24
+2   21  
+3   5
+4   3
+5   4
+6   2
+7   22 
+8   23
+9   6
+10  8
+11  9
+12  15
+13  12
+14  10
+15  13
+16  17
+17  19
+18  7
+19  18
+20  14
+21  16
+22  20
+23  11
+24  1

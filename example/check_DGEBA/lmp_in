@@ -1,0 +1,37 @@
+units real
+atom_style full
+
+dimension 3
+boundary p p p
+
+pair_style lj/cut/coul/cut 15.0 15.0
+pair_modify mix geometric
+
+bond_style harmonic 
+angle_style harmonic
+dihedral_style opls 
+improper_style cvff
+special_bonds lj/coul 0.0 0.0 0.5 
+
+read_data DGEBA.dat
+
+#kspace_style    pppm 1e-5
+#kspace_modify  slab 3.0
+
+neighbor        1.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+thermo          1000
+thermo_style    custom step temp density press pxx pyy pzz pxy pxz pyz ke pe etotal vol lx ly lz
+
+dump            1 all xyz 1000 dump_relax.xyz
+#dump_modify     1 sort id
+
+#NVT/NPT melt run 
+fix             1 all nvt temp 300 300 100
+#fix             1 all npt temp 400 400 100 iso 1 1 1000
+fix             2 all recenter 20.0 20.0 20.0
+run             100000
+unfix           1
+unfix           2
+write_data      DGEBA_center.dat

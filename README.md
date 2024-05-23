@@ -14,9 +14,9 @@ This tutorial provides the basic steps and associated tools to prepare the input
     - This is done by gen_template.py. 
         - It generates a mapping dictionary (based on products, because they  contain the most interaction types) for the type conversion.
         - At the end, it can output new lammps structure files 
-    - Check the new structure files in MD simulations  
+    - Check the new structure files in MD simulations, see examples/check_*
 - Step 2: Merge reactant molecules into one system
-    - This can be done with lammps, see example in.merge 
+    - This can be done with lammps, see example/merge in.merge 
 - Step 3: prepare pre_react template 
     - gen_template.py 
     - visualize and check 
@@ -24,6 +24,7 @@ This tutorial provides the basic steps and associated tools to prepare the input
     - visualize and check 
 - Step 5: prepare the map file 
     - I did it manually
+    - depending on the system complexity, Steps 2-5 might need to be done several times for each reaction. 
 
-if you find this useful, you could cite [Yu, Z., & Jackson, N. E. (2023). Machine learning quantum-chemical bond scission in thermosets under extreme deformation. Applied Physics Letters, 122(21), https://doi.org/10.1063/5.0150085](https://doi.org/10.1063/5.0150085). 
+if you find this useful, please cite [Yu, Z., & Jackson, N. E. (2023). Machine learning quantum-chemical bond scission in thermosets under extreme deformation. Applied Physics Letters, 122(21), https://doi.org/10.1063/5.0150085](https://doi.org/10.1063/5.0150085). 
 

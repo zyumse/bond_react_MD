@@ -1,0 +1,203 @@
+LAMMPS (2 Aug 2023)
+units real
+atom_style full
+
+dimension 3
+boundary p p p
+
+pair_style lj/cut/coul/cut 15.0 15.0
+pair_modify mix geometric
+
+bond_style harmonic
+angle_style harmonic
+dihedral_style opls
+improper_style cvff
+special_bonds lj/coul 0.0 0.0 0.5
+
+read_data pre_react.dat
+Reading data file ...
+  orthogonal box = (-6.67908 -6.07739 -4.64866) to (57.03843 59.25778 57.22308)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  78 atoms
+  reading velocities ...
+  78 velocities
+  scanning bonds ...
+  2 = max bonds/atom
+  scanning angles ...
+  6 = max angles/atom
+  scanning dihedrals ...
+  10 = max dihedrals/atom
+  scanning impropers ...
+  5 = max impropers/atom
+  reading bonds ...
+  82 bonds
+  reading angles ...
+  142 angles
+  reading dihedrals ...
+  196 dihedrals
+  reading impropers ...
+  44 impropers
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0.5     
+  special bond factors coul:  0        0        0.5     
+     4 = max # of 1-2 neighbors
+    10 = max # of 1-3 neighbors
+    19 = max # of 1-4 neighbors
+    22 = max # of special neighbors
+  special bonds CPU = 0.000 seconds
+  read_data CPU = 0.004 seconds
+
+#kspace_style    pppm 1e-5
+#kspace_modify  slab 3.0
+
+neighbor        1.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+thermo          1000
+#thermo_style    custom step temp density press pxx pyy pzz pxy pxz pyz ke pe etotal vol lx ly lz
+
+dump            1 all xyz 1000 dump_relax.xyz
+#dump_modify     1 sort id
+
+velocity all create 300.0 428459 dist gaussian
+
+molecule mol1 rxn1_pre.data_template
+Read molecule template mol1:
+  1 molecules
+  0 fragments
+  24 atoms with max type 11
+  24 bonds with max type 15
+  39 angles with max type 33
+  47 dihedrals with max type 44
+  11 impropers with max type 19
+molecule mol2 rxn1_post.data_template
+Read molecule template mol2:
+  1 molecules
+  0 fragments
+  24 atoms with max type 11
+  24 bonds with max type 16
+  39 angles with max type 31
+  54 dihedrals with max type 45
+  12 impropers with max type 18
+
+fix rxns all bond/react stabilization yes statted_grp .03   react rxn1 all 1 0.0 5 mol1 mol2 rxn1_v2.map
+dynamic group bond_react_MASTER_group defined
+dynamic group statted_grp_REACT defined
+
+fix 1 statted_grp_REACT npt temp 300 300 100 iso 1 1 1000
+thermo_style custom step temp density f_rxns[1]
+
+run             30000
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- fix bond/react: reacter.org doi:10.1016/j.polymer.2017.09.038, doi:10.1021/acs.macromol.0c02012
+
+@Article{Gissinger17,
+ author = {J. R. Gissinger and B. D. Jensen and K. E. Wise},
+ title = {Modeling Chemical Reactions in Classical Molecular Dynamics Simulations},
+ journal = {Polymer},
+ year =    2017,
+ volume =  128,
+ pages =   {211--217}
+}
+
+@Article{Gissinger20,
+ author = {J. R. Gissinger, B. D. Jensen, K. E. Wise},
+ title = {{REACTER}: A Heuristic Method for Reactive Molecular Dynamics},
+ journal = {Macromolecules},
+ year =    2020,
+ volume =  53,
+ number =  22,
+ pages =   {9953--9961}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Generated 55 of 55 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 8 9 8
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair lj/cut/coul/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) fix bond/react, occasional, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 14.14 | 14.14 | 14.14 Mbytes
+   Step          Temp         Density       f_rxns[1]   
+         0   300            0.0034728675   0            
+      1000   262.85966      0.0036734185   0            
+      2000   287.70204      0.0052829597   0            
+      3000   317.26964      0.0065248084   0            
+      4000   291.73414      0.0072989946   0            
+      5000   289.37906      0.0094901822   0            
+      6000   273.90898      0.011406024    0            
+      7000   262.61946      0.012897202    0            
+      8000   292.10561      0.016556917    0            
+      9000   317.03214      0.01986641     0            
+     10000   237.25516      0.020971585    0            
+     11000   288.65593      0.022639741    0            
+     12000   307.8739       0.044112403    1            
+     13000   732.59868      0.061849565    2            
+     14000   271.54744      0.06684588     2            
+     15000   311.40307      0.066185226    2            
+     16000   232.07233      0.063888363    2            
+     17000   320.04809      0.06245826     2            
+     18000   266.99023      0.059775354    2            
+     19000   245.19018      0.055922178    2            
+     20000   282.95994      0.051159995    2            
+     21000   290.02669      0.050093393    2            
+     22000   316.81024      0.048568461    2            
+     23000   254.62167      0.045910583    2            
+     24000   316.0454       0.0363836      2            
+     25000   296.53059      0.024982353    2            
+     26000   340.82935      0.023726163    2            
+     27000   274.30032      0.023822727    2            
+     28000   305.76524      0.024462639    2            
+     29000   313.869        0.026490447    2            
+     30000   266.51653      0.032810895    2            
+Loop time of 1.64659 on 1 procs for 30000 steps with 78 atoms
+
+Performance: 1574.166 ns/day, 0.015 hours/ns, 18219.512 timesteps/s, 1.421 Matom-step/s
+99.3% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.47014    | 0.47014    | 0.47014    |   0.0 | 28.55
+Bond    | 0.64761    | 0.64761    | 0.64761    |   0.0 | 39.33
+Neigh   | 0.11033    | 0.11033    | 0.11033    |   0.0 |  6.70
+Comm    | 0.05551    | 0.05551    | 0.05551    |   0.0 |  3.37
+Output  | 0.0020649  | 0.0020649  | 0.0020649  |   0.0 |  0.13
+Modify  | 0.3472     | 0.3472     | 0.3472     |   0.0 | 21.09
+Other   |            | 0.01375    |            |       |  0.83
+
+Nlocal:             78 ave          78 max          78 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            634 ave         634 max         634 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:           2779 ave        2779 max        2779 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 2779
+Ave neighs/atom = 35.628205
+Ave special neighs/atom = 10.820513
+Neighbor list builds = 1977
+Dangerous builds = 0
+
+write_data      out.dat
+System init for write_data ...
+Generated 55 of 55 mixed pair_coeff terms from geometric mixing rule
+Total wall time: 0:00:01
